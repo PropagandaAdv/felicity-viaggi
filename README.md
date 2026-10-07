@@ -50,11 +50,21 @@ Ogni evento è un `window.dataLayer.push({ event, ...parametri })`. Se il Meta P
 |---|---|---|
 | `cta_click` | Click su CTA (hero, header, menu mobile, contatti, telefono, WhatsApp) | `cta_label`, `cta_location` |
 | `select_item` | Click su una card viaggio o su una meta ispirazione | `item_list_id`, `item_list_name`, `items[]` (`item_id`, `item_name`, `item_category`, `price`, `currency`, `index`) |
+| `search` | Invio del booking engine della vetrina | `search_term`, `destination`, `start_date`, `end_date` (data o mese), `adults`, `children` |
 | `filter_select` | Click su un filtro della vetrina | `filter_type` |
 | `generate_lead` | Invio valido del modulo preventivo | `form_name`, `destination`, `travelers`, `lead_method` (`endpoint` o `mailto`) |
 | `sign_up` | Iscrizione valida alla newsletter | `method: newsletter`, `form_location`, `lead_method` |
 
 Con `lead_method: mailto` l'utente ha solo aperto l'email precompilata, non l'ha ancora inviata: in GTM conviene usare come conversione solo `lead_method = endpoint`, una volta configurato l'endpoint.
+
+## Booking engine della vetrina
+
+Barra di ricerca in stile Sì Vola sopra la vetrina: **Dove** (destinazioni delle offerte), **Quando** (calendario a due mesi con intervallo di date, date flessibili ±3 giorni, oppure scelta per mese con il numero di partenze) e **Viaggiatori** (adulti, bambini con età obbligatoria).
+
+- Filtra le partenze della vetrina e segna sul calendario i giorni con una partenza.
+- **Disponibilità reale:** il link di ogni card porta alla scheda del motore OTO con le età dei viaggiatori nell'URL (`/eta/35,35,8`). Lì OTO mostra posti e prezzo totale in tempo reale per aeroporto e data. Gli adulti sono passati con 35 anni, l'età standard già usata dal sito. La crociera non ha il parametro nell'URL e apre la scheda così com'è.
+- **Nessun risultato:** la pagina propone «Chiedi a un consulente» e precompila il modulo preventivo con destinazione, periodo, numero di viaggiatori ed età dei bambini.
+- Le partenze sono quelle dell'array `OFFERS` (campi `departure` in formato ISO e `area` per la destinazione): aggiornandoli si aggiorna anche il motore.
 
 ## SEO
 

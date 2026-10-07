@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import {
   ArrowDown, ArrowRight, BadgeCheck, Briefcase, CalendarDays, Check, CircleAlert, Clock, Compass,
   Facebook, Headphones, Heart, Instagram, Loader2, Mail, MapPin, Menu, MessageCircle, Moon, Phone,
-  Plane, Send, ShieldCheck, Ship, Bus, Users, Utensils, X,
+  Plane, Send, ShieldCheck, Ship, Bus, Users, Utensils, X, Search, Minus, Plus, ChevronLeft, ChevronRight, ChevronDown,
 } from 'lucide-react';
 
 /* =============================================================================
@@ -125,42 +125,42 @@ const OFFERS = [
   {
     id: 'nicolaus-three-corners-marsa-alam', type: 'vacanze', badge: 'Volo + Soggiorno', BadgeIcon: Plane,
     name: 'Nicolaus Club Three Corners Sea Beach Resort', place: 'Mar Rosso · Marsa Alam',
-    date: '25 ottobre 2026', nights: '7 notti', board: 'All inclusive', price: 931,
+    date: '25 ottobre 2026', departure: '2026-10-25', area: 'Mar Rosso', nights: '7 notti', board: 'All inclusive', price: 931,
     img: '/assets/offer-marsaalam.webp', alt: 'Barriera corallina nel Mar Rosso vista a pelo d’acqua, con le colline del deserto sullo sfondo',
     href: `${CONFIG.site}/vacanze/dettaglio/36919/312/LIVENCL-NC-PORTGHALIB-5162-20261025-7-MXP-294127294156-FLY-BASIS/54/struttura/Nicolaus-Club-Three-Corners-Sea-Beach-Resort/dal/25-10-2026/al/01-11-2026/durata/7/eta/35,35`,
   },
   {
     id: 'seaclub-cape-panwa', type: 'vacanze', badge: 'Volo + Soggiorno', BadgeIcon: Plane,
     name: 'SeaClub Cape Panwa', place: 'Thailandia · Phuket',
-    date: '23 novembre 2026', nights: '7 notti', board: 'Pensione completa + 1 bevanda', price: 1593,
+    date: '23 novembre 2026', departure: '2026-11-23', area: 'Thailandia', nights: '7 notti', board: 'Pensione completa + 1 bevanda', price: 1593,
     img: '/assets/offer-phuket.webp', alt: 'Baia tropicale di Phuket con isolotti calcarei e acqua color smeraldo',
     href: `${CONFIG.site}/vacanze/dettaglio/38385/5035/LIVEALP-FR-FR-001337-E6C5920-25215A5LR-FR25215A5LR-8-20261123112000-MXP/51/struttura/SeaClub-Cape-Panwa/dal/23-11-2026/al/30-11-2026/durata/7/eta/35,35`,
   },
   {
     id: 'veraclub-sunscape-dominicus', type: 'vacanze', badge: 'Volo + Soggiorno', BadgeIcon: Plane,
     name: 'Veraclub Sunscape Dominicus', place: 'Rep. Dominicana · Bayahibe',
-    date: '27 novembre 2026', nights: '7 notti', board: 'All inclusive', price: 2222,
+    date: '27 novembre 2026', departure: '2026-11-27', area: 'Rep. Dominicana', nights: '7 notti', board: 'All inclusive', price: 2222,
     img: '/assets/offer-dominicana.webp', alt: 'Spiaggia caraibica di sabbia bianca con palme inclinate sul mare turchese',
     href: `${CONFIG.site}/vacanze/dettaglio/38662/1101/453490/11/struttura/Veraclub-Sunscape-Dominicus/dal/27-11-2026/al/04-12-2026/durata/7/eta/35,35`,
   },
   {
     id: 'mercatini-monaco', type: 'tour', badge: 'Bus + Tour', BadgeIcon: Bus,
     name: 'Mercatini di Natale a Monaco di Baviera', place: 'Germania · Baviera',
-    date: '5 dicembre 2026', nights: '3 notti', board: null, price: 880,
+    date: '5 dicembre 2026', departure: '2026-12-05', area: 'Germania', nights: '3 notti', board: null, price: 880,
     img: '/assets/offer-monaco.webp', alt: 'Mercatino di Natale in una piazza bavarese all’ora blu, con bancarelle illuminate e un grande albero',
     href: `${CONFIG.site}/tour/dettaglio/2187/246/BSCLive-WH-NORD-20261205/63/struttura/Mercatini-di-Natale-a-Monaco-di-Baviera/dal/05-12-2026/al/12-12-2026/durata/3/eta/35,35`,
   },
   {
     id: 'costa-smeralda-canarie', type: 'crociere', badge: 'Crociera', BadgeIcon: Ship,
     name: 'Costa Smeralda · Isole Canarie, Spagna, Madera', place: 'Partenza da Santa Cruz de Tenerife',
-    date: '13 dicembre 2026', nights: '8 giorni', board: null, price: 449,
+    date: '13 dicembre 2026', departure: '2026-12-13', area: 'Isole Canarie', nights: '8 giorni', board: null, price: 449,
     img: '/assets/offer-crociera.webp', alt: 'Nave da crociera bianca in navigazione sull’oceano davanti alla costa vulcanica delle Canarie',
     href: `${CONFIG.site}/crociere/dettaglio/TCI07A5I/0/pacchetto/Isole%20Canarie-Spagna-Madera/volo/NO/dal/13-12-2026/al/27-12-2026`,
   },
   {
     id: 'valtur-cervinia', type: 'vacanze', badge: 'Solo soggiorno', BadgeIcon: Moon,
     name: 'Valtur Cervinia Cristallo Ski Resort', place: 'Italia · Valle d’Aosta',
-    date: '17 gennaio 2027', nights: '7 notti', board: 'Pernottamento e colazione', price: 2414,
+    date: '17 gennaio 2027', departure: '2027-01-17', area: 'Italia', nights: '7 notti', board: 'Pernottamento e colazione', price: 2414,
     img: '/assets/offer-cervinia.webp', alt: 'Cervino innevato in una limpida mattina d’inverno, con abeti carichi di neve',
     href: `${CONFIG.site}/vacanze/dettaglio/36042/1/LIVENCLHO-VT-CERVINIA-5045-20270117-7-BASIS/54/struttura/Valtur-Cervinia-Cristallo-Ski-Resort/dal/17-01-2027/al/24-01-2027/durata/7/eta/35,35`,
   },
@@ -859,8 +859,376 @@ function Hero() {
 /* =============================================================================
    VETRINA VIAGGI
    ============================================================================= */
-function OfferCard({ offer, index }) {
+/* =============================================================================
+   BOOKING ENGINE DELLA VETRINA
+   Filtra le partenze per destinazione, date o mese e viaggiatori. La disponibilità
+   reale si verifica sul motore OTO: il link di ogni scheda porta già le età dei viaggiatori.
+   ============================================================================= */
+const MONTHS_IT = ['gennaio', 'febbraio', 'marzo', 'aprile', 'maggio', 'giugno', 'luglio', 'agosto', 'settembre', 'ottobre', 'novembre', 'dicembre'];
+const WEEKDAYS_IT = ['L', 'M', 'M', 'G', 'V', 'S', 'D'];
+const WEEKDAYS_FULL_IT = ['lunedì', 'martedì', 'mercoledì', 'giovedì', 'venerdì', 'sabato', 'domenica'];
+const ADULT_AGE = 35; // età standard adulto usata dal motore OTO
+const FLEX_DAYS = 3;
+
+const toIso = (d) => `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+const fromIso = (iso) => { const [y, m, d] = iso.split('-').map(Number); return new Date(y, m - 1, d); };
+const addDays = (iso, n) => { const d = fromIso(iso); d.setDate(d.getDate() + n); return toIso(d); };
+const shortDate = (iso) => { const d = fromIso(iso); return `${d.getDate()} ${MONTHS_IT[d.getMonth()].slice(0, 3)}`; };
+const monthKey = (iso) => iso.slice(0, 7);
+const monthLabel = (key) => { const [y, m] = key.split('-').map(Number); return `${MONTHS_IT[m - 1]} ${y}`; };
+const todayIso = () => toIso(new Date());
+
+const DEST_OPTIONS = [...new Set(OFFERS.map((o) => o.area))];
+const DEPARTURE_DAYS = new Set(OFFERS.map((o) => o.departure));
+const EMPTY_SEARCH = { dest: '', mode: 'date', from: null, to: null, month: null, flex: false, adults: 2, children: [] };
+
+function travelersLabel({ adults, children }) {
+  const a = `${adults} ${adults === 1 ? 'adulto' : 'adulti'}`;
+  if (!children.length) return a;
+  return `${a}, ${children.length} ${children.length === 1 ? 'bambino' : 'bambini'}`;
+}
+
+function whenLabel(q) {
+  if (q.mode === 'month' && q.month) return monthLabel(q.month);
+  if (q.mode === 'date' && q.from && q.to) return `${shortDate(q.from)} - ${shortDate(q.to)}`;
+  if (q.mode === 'date' && q.from) return `dal ${shortDate(q.from)}`;
+  return '';
+}
+
+function matchesSearch(o, q) {
+  if (!q) return true;
+  if (q.dest && o.area !== q.dest) return false;
+  if (q.mode === 'month' && q.month) return monthKey(o.departure) === q.month;
+  if (q.mode === 'date' && q.from) {
+    const flex = q.flex ? FLEX_DAYS : 0;
+    const from = addDays(q.from, -flex);
+    const to = addDays(q.to || q.from, flex);
+    return o.departure >= from && o.departure <= to;
+  }
+  return true;
+}
+
+/** Link alla scheda OTO con le età dei viaggiatori: lì si vedono disponibilità e prezzo reali. */
+function offerHrefFor(offer, q) {
+  if (!q || !/\/eta\/[^/]+$/.test(offer.href)) return offer.href;
+  const ages = [...Array(q.adults).fill(ADULT_AGE), ...q.children.map(Number)];
+  return offer.href.replace(/\/eta\/[^/]+$/, `/eta/${ages.join(',')}`);
+}
+
+function Stepper({ label, hint, value, min, max, onChange, id }) {
+  return (
+    <div className="flex items-center justify-between gap-4 py-3">
+      <div>
+        <p id={id} className="font-semibold text-brand-ink">{label}</p>
+        <p className="text-sm font-light text-brand-ink">{hint}</p>
+      </div>
+      <div className="flex items-center gap-3" role="group" aria-labelledby={id}>
+        <button type="button" onClick={() => onChange(value - 1)} disabled={value <= min} aria-label={`Togli un ${label.toLowerCase().replace(/i$/, 'o')}`} className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-brand-primary/25 text-brand-primary transition-colors hover:border-brand-accent disabled:cursor-not-allowed disabled:opacity-40 focus-visible:outline focus-visible:outline-2 focus-visible:outline-brand-accent">
+          <Minus size={20} {...ICON} aria-hidden="true" />
+        </button>
+        <span className="w-6 text-center text-lg font-semibold tabular-nums text-brand-ink" aria-live="polite">{value}</span>
+        <button type="button" onClick={() => onChange(value + 1)} disabled={value >= max} aria-label={`Aggiungi un ${label.toLowerCase().replace(/i$/, 'o')}`} className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-brand-primary/25 text-brand-primary transition-colors hover:border-brand-accent disabled:cursor-not-allowed disabled:opacity-40 focus-visible:outline focus-visible:outline-2 focus-visible:outline-brand-accent">
+          <Plus size={20} {...ICON} aria-hidden="true" />
+        </button>
+      </div>
+    </div>
+  );
+}
+
+function MonthGrid({ year, month, q, onPick, minIso }) {
+  const first = new Date(year, month, 1);
+  const lead = (first.getDay() + 6) % 7; // lunedì come primo giorno
+  const days = new Date(year, month + 1, 0).getDate();
+  const cells = [...Array(lead).fill(null), ...Array.from({ length: days }, (_, i) => toIso(new Date(year, month, i + 1)))];
+  const end = q.to || q.from;
+  return (
+    <div>
+      <p className="mb-3 text-center text-sm font-semibold capitalize text-brand-ink">{MONTHS_IT[month]} {year}</p>
+      <div className="grid grid-cols-7 text-center text-xs font-semibold text-brand-primary" aria-hidden="true">
+        {WEEKDAYS_IT.map((w, i) => <span key={i} className="py-1">{w}</span>)}
+      </div>
+      <div className="grid grid-cols-7 gap-y-1">
+        {cells.map((iso, i) => {
+          if (!iso) return <span key={`e${i}`} />;
+          const disabled = iso < minIso;
+          const isStart = iso === q.from;
+          const isEnd = iso === end;
+          const inRange = q.from && end && iso > q.from && iso < end;
+          const hasDeparture = DEPARTURE_DAYS.has(iso);
+          const d = fromIso(iso);
+          return (
+            <button
+              key={iso}
+              type="button"
+              disabled={disabled}
+              onClick={() => onPick(iso)}
+              aria-pressed={isStart || isEnd}
+              aria-label={`${WEEKDAYS_FULL_IT[(d.getDay() + 6) % 7]} ${d.getDate()} ${MONTHS_IT[d.getMonth()]} ${d.getFullYear()}${hasDeparture ? ', partenza in vetrina' : ''}`}
+              className={`relative mx-auto flex h-10 w-full items-center justify-center text-sm transition-colors focus-visible:z-10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-brand-accent disabled:cursor-not-allowed disabled:text-[#9aa3ad] ${
+                isStart || isEnd ? 'rounded-full bg-brand-primary font-semibold text-white' : inRange ? 'bg-brand-primary/10 text-brand-ink' : 'rounded-full text-brand-ink hover:bg-brand-primary/5'
+              }`}
+            >
+              {d.getDate()}
+              {hasDeparture && <span className={`absolute bottom-1 h-1 w-1 rounded-full ${isStart || isEnd ? 'bg-brand-secondary' : 'bg-brand-accent'}`} aria-hidden="true" />}
+            </button>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
+function BookingBar({ onSearch, onReset, applied }) {
+  const [q, setQ] = useState(EMPTY_SEARCH);
+  const [open, setOpen] = useState(null); // 'dest' | 'when' | 'pax' | null
+  const [ageError, setAgeError] = useState(false);
+  const [view, setView] = useState(() => { const d = new Date(); return { y: d.getFullYear(), m: d.getMonth() }; });
+  const rootRef = useRef(null);
+  const minIso = todayIso();
+  const months = useMemo(() => {
+    const d = new Date(); d.setDate(1);
+    return Array.from({ length: 12 }, (_, i) => { const x = new Date(d.getFullYear(), d.getMonth() + i, 1); return toIso(x).slice(0, 7); });
+  }, []);
+  const departuresByMonth = useMemo(() => OFFERS.reduce((acc, o) => { const k = monthKey(o.departure); acc[k] = (acc[k] || 0) + 1; return acc; }, {}), []);
+
+  useEffect(() => {
+    if (!open) return undefined;
+    const onDown = (e) => { if (rootRef.current && !rootRef.current.contains(e.target)) setOpen(null); };
+    const onKey = (e) => { if (e.key === 'Escape') { setOpen(null); rootRef.current?.querySelector(`[data-field="${open}"]`)?.focus(); } };
+    document.addEventListener('mousedown', onDown);
+    document.addEventListener('keydown', onKey);
+    return () => { document.removeEventListener('mousedown', onDown); document.removeEventListener('keydown', onKey); };
+  }, [open]);
+
+  const set = (patch) => setQ((prev) => ({ ...prev, ...patch }));
+  const pick = (iso) => {
+    if (!q.from || (q.from && q.to)) set({ from: iso, to: null, month: null });
+    else if (iso < q.from) set({ from: iso, to: q.from });
+    else set({ to: iso });
+  };
+  const setChildren = (n) => setQ((prev) => ({ ...prev, children: n > prev.children.length ? [...prev.children, ''] : prev.children.slice(0, n) }));
+  const shiftView = (delta) => setView(({ y, m }) => { const d = new Date(y, m + delta, 1); return { y: d.getFullYear(), m: d.getMonth() }; });
+  const canPrev = new Date(view.y, view.m, 1) > new Date(new Date().getFullYear(), new Date().getMonth(), 1);
+  const next = new Date(view.y, view.m + 1, 1);
+
+  const submit = (e) => {
+    e.preventDefault();
+    if (q.children.some((c) => c === '')) {
+      // senza età il motore OTO non può calcolare prezzo e disponibilità reali
+      setAgeError(true);
+      setOpen('pax');
+      setTimeout(() => rootRef.current?.querySelector('#bk-pax select[aria-invalid="true"]')?.focus(), 50);
+      return;
+    }
+    setAgeError(false);
+    setOpen(null);
+    const query = { ...q, children: q.children.map(Number) };
+    onSearch(query);
+    track('search', {
+      search_term: [q.dest || 'tutte le destinazioni', whenLabel(q) || 'qualsiasi data'].join(' | '),
+      destination: q.dest || 'tutte',
+      start_date: q.mode === 'date' ? q.from : q.month,
+      end_date: q.mode === 'date' ? (q.to || q.from) : q.month,
+      adults: q.adults,
+      children: q.children.length,
+    });
+  };
+
+  const fieldBtn = 'group flex w-full min-h-[64px] flex-col items-start justify-center rounded-2xl px-5 py-3 text-left transition-colors hover:bg-brand-primary/5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-brand-accent';
+  const fieldLabel = 'text-xs font-semibold uppercase tracking-[0.2em] text-brand-primary';
+  const panel = 'absolute left-0 right-0 top-full z-30 mt-3 rounded-2xl bg-white p-5 shadow-lift ring-1 ring-brand-primary/10 sm:p-6';
+
+  return (
+    <form ref={rootRef} onSubmit={submit} role="search" aria-label="Cerca la tua partenza" className="relative">
+      <div className="grid gap-1 rounded-3xl bg-white p-2 shadow-lift ring-1 ring-brand-primary/10 md:grid-cols-[1.1fr_1.3fr_1.1fr_auto] md:items-center md:gap-0">
+        {/* Dove */}
+        <div className="md:border-r md:border-brand-primary/10">
+          <button type="button" data-field="dest" aria-expanded={open === 'dest'} aria-controls="bk-dest" onClick={() => setOpen(open === 'dest' ? null : 'dest')} className={fieldBtn}>
+            <span className={fieldLabel}>Dove</span>
+            <span className="mt-1 flex w-full items-center justify-between gap-2 font-semibold text-brand-ink">
+              <span className="inline-flex items-center gap-2 truncate"><MapPin size={20} {...ICON} className="shrink-0 text-brand-primary" aria-hidden="true" />{q.dest || 'Tutte le destinazioni'}</span>
+              <ChevronDown size={20} {...ICON} aria-hidden="true" className={`shrink-0 text-brand-primary transition-transform ${open === 'dest' ? 'rotate-180' : ''}`} />
+            </span>
+          </button>
+        </div>
+        {/* Quando */}
+        <div className="md:border-r md:border-brand-primary/10">
+          <button type="button" data-field="when" aria-expanded={open === 'when'} aria-controls="bk-when" onClick={() => setOpen(open === 'when' ? null : 'when')} className={fieldBtn}>
+            <span className={fieldLabel}>Quando</span>
+            <span className="mt-1 flex w-full items-center justify-between gap-2 font-semibold text-brand-ink">
+              <span className="inline-flex items-center gap-2 truncate"><CalendarDays size={20} {...ICON} className="shrink-0 text-brand-primary" aria-hidden="true" />{whenLabel(q) || 'Qualsiasi data'}{q.flex && q.mode === 'date' && q.from ? ' (±3 gg)' : ''}</span>
+              <ChevronDown size={20} {...ICON} aria-hidden="true" className={`shrink-0 text-brand-primary transition-transform ${open === 'when' ? 'rotate-180' : ''}`} />
+            </span>
+          </button>
+        </div>
+        {/* Chi */}
+        <div>
+          <button type="button" data-field="pax" aria-expanded={open === 'pax'} aria-controls="bk-pax" onClick={() => setOpen(open === 'pax' ? null : 'pax')} className={fieldBtn}>
+            <span className={fieldLabel}>Viaggiatori</span>
+            <span className="mt-1 flex w-full items-center justify-between gap-2 font-semibold text-brand-ink">
+              <span className="inline-flex items-center gap-2 truncate"><Users size={20} {...ICON} className="shrink-0 text-brand-primary" aria-hidden="true" />{travelersLabel(q)}</span>
+              <ChevronDown size={20} {...ICON} aria-hidden="true" className={`shrink-0 text-brand-primary transition-transform ${open === 'pax' ? 'rotate-180' : ''}`} />
+            </span>
+          </button>
+        </div>
+        <div className="p-1 md:pl-2">
+          <button type="submit" className={`${BTN.primary} w-full md:min-h-[56px] md:px-7`}>
+            <Search size={20} {...ICON} aria-hidden="true" /> Cerca disponibilità
+          </button>
+        </div>
+      </div>
+
+      {open === 'dest' && (
+        <div id="bk-dest" className={`${panel} md:right-auto md:w-[26rem]`}>
+          <p className="text-sm font-semibold text-brand-ink">Dove vuoi andare?</p>
+          <div className="mt-4 flex flex-wrap gap-2" role="group" aria-label="Destinazioni">
+            {['', ...DEST_OPTIONS].map((d) => {
+              const active = q.dest === d;
+              return (
+                <button key={d || 'tutte'} type="button" aria-pressed={active} onClick={() => { set({ dest: d }); setOpen('when'); }} className={`min-h-[44px] rounded-full border px-4 text-sm font-semibold transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-brand-accent ${active ? 'border-brand-primary bg-brand-primary text-white' : 'border-brand-primary/20 text-brand-ink hover:border-brand-accent'}`}>
+                  {d || 'Tutte le destinazioni'}
+                </button>
+              );
+            })}
+          </div>
+          <p className="mt-4 text-sm font-light text-brand-ink">Non trovi la meta che sogni? Scegli «Tutte» e scrivici: organizziamo viaggi su misura ovunque.</p>
+        </div>
+      )}
+
+      {open === 'when' && (
+        <div id="bk-when" className={`${panel} md:left-[20%] md:right-auto md:w-[42rem]`}>
+          <div className="flex items-center gap-2" role="group" aria-label="Tipo di ricerca per data">
+            {[['date', 'Date'], ['month', 'Mese']].map(([m, label]) => (
+              <button key={m} type="button" aria-pressed={q.mode === m} onClick={() => set({ mode: m })} className={`min-h-[44px] rounded-full px-5 text-sm font-semibold transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-brand-accent ${q.mode === m ? 'bg-brand-primary text-white' : 'bg-brand-primary/5 text-brand-primary hover:bg-brand-primary/10'}`}>
+                {label}
+              </button>
+            ))}
+            <span className="ml-auto hidden items-center gap-2 text-xs font-light text-brand-ink sm:inline-flex"><span className="h-1.5 w-1.5 rounded-full bg-brand-accent" aria-hidden="true" /> giorni con partenze in vetrina</span>
+          </div>
+
+          {q.mode === 'date' ? (
+            <>
+              <div className="mt-5 flex items-center justify-between">
+                <button type="button" onClick={() => shiftView(-1)} disabled={!canPrev} aria-label="Mese precedente" className="inline-flex h-11 w-11 items-center justify-center rounded-full text-brand-primary hover:bg-brand-primary/5 disabled:opacity-30 focus-visible:outline focus-visible:outline-2 focus-visible:outline-brand-accent"><ChevronLeft size={20} {...ICON} /></button>
+                <p className="text-sm font-light text-brand-ink" aria-live="polite">
+                  {!q.from ? 'Scegli la data di partenza' : !q.to ? 'Ora scegli la data di ritorno' : `Dal ${shortDate(q.from)} al ${shortDate(q.to)}`}
+                </p>
+                <button type="button" onClick={() => shiftView(1)} aria-label="Mese successivo" className="inline-flex h-11 w-11 items-center justify-center rounded-full text-brand-primary hover:bg-brand-primary/5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-brand-accent"><ChevronRight size={20} {...ICON} /></button>
+              </div>
+              <div className="mt-3 grid gap-8 md:grid-cols-2">
+                <MonthGrid year={view.y} month={view.m} q={q} onPick={pick} minIso={minIso} />
+                <div className="hidden md:block"><MonthGrid year={next.getFullYear()} month={next.getMonth()} q={q} onPick={pick} minIso={minIso} /></div>
+              </div>
+              <div className="mt-5 flex flex-wrap items-center justify-between gap-4 border-t border-brand-primary/10 pt-4">
+                <label className="inline-flex cursor-pointer items-center gap-3 text-sm text-brand-ink">
+                  <input type="checkbox" checked={q.flex} onChange={(e) => set({ flex: e.target.checked })} className="h-5 w-5 rounded accent-brand-primary focus-visible:outline focus-visible:outline-2 focus-visible:outline-brand-accent" />
+                  Date flessibili (±{FLEX_DAYS} giorni)
+                </label>
+                <div className="flex gap-2">
+                  <button type="button" onClick={() => set({ from: null, to: null })} className="min-h-[44px] rounded-full px-4 text-sm font-semibold text-brand-primary hover:bg-brand-primary/5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-brand-accent">Cancella</button>
+                  <button type="button" onClick={() => setOpen('pax')} className={`${BTN.blue} !py-2`}>Conferma</button>
+                </div>
+              </div>
+            </>
+          ) : (
+            <div className="mt-5 grid grid-cols-2 gap-2 sm:grid-cols-3 md:grid-cols-4" role="group" aria-label="Mese di partenza">
+              {months.map((k) => {
+                const active = q.month === k;
+                const n = departuresByMonth[k] || 0;
+                return (
+                  <button key={k} type="button" aria-pressed={active} onClick={() => { set({ month: active ? null : k, from: null, to: null }); if (!active) setOpen('pax'); }} className={`flex min-h-[56px] flex-col items-center justify-center rounded-2xl border px-3 py-2 text-sm transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-brand-accent ${active ? 'border-brand-primary bg-brand-primary text-white' : 'border-brand-primary/15 text-brand-ink hover:border-brand-accent'}`}>
+                    <span className="font-semibold capitalize">{monthLabel(k)}</span>
+                    <span className={`text-xs ${active ? 'text-white/85' : 'font-light'}`}>{n ? `${n} ${n === 1 ? 'partenza' : 'partenze'}` : 'su richiesta'}</span>
+                  </button>
+                );
+              })}
+            </div>
+          )}
+        </div>
+      )}
+
+      {open === 'pax' && (
+        <div id="bk-pax" className={`${panel} md:left-auto md:w-[24rem]`}>
+          <Stepper id="bk-adults" label="Adulti" hint="Dai 18 anni" value={q.adults} min={1} max={9} onChange={(v) => set({ adults: v })} />
+          <div className="border-t border-brand-primary/10" />
+          <Stepper id="bk-children" label="Bambini" hint="Da 0 a 17 anni" value={q.children.length} min={0} max={4} onChange={setChildren} />
+          {q.children.length > 0 && (
+            <div className="mt-2 grid grid-cols-2 gap-3">
+              {q.children.map((age, i) => (
+                <label key={i} className="text-sm font-semibold text-brand-ink">
+                  Età bambino {i + 1}
+                  <select
+                    value={age}
+                    aria-invalid={ageError && age === ''}
+                    aria-describedby={ageError && age === '' ? 'bk-age-err' : undefined}
+                    onChange={(e) => setQ((prev) => ({ ...prev, children: prev.children.map((c, j) => (j === i ? e.target.value : c)) }))}
+                    className="mt-1 min-h-[44px] w-full rounded-xl border border-brand-primary/20 bg-white px-3 font-normal text-brand-ink focus:border-brand-primary focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-accent/60"
+                  >
+                    <option value="">Scegli</option>
+                    {Array.from({ length: 18 }, (_, n) => <option key={n} value={n}>{n === 0 ? 'meno di 1 anno' : `${n} ${n === 1 ? 'anno' : 'anni'}`}</option>)}
+                  </select>
+                </label>
+              ))}
+            </div>
+          )}
+          {ageError && q.children.some((c) => c === '') ? (
+            <p id="bk-age-err" role="alert" className="mt-4 flex items-center gap-1.5 text-sm text-[#b42318]"><CircleAlert size={16} {...ICON} aria-hidden="true" />Indica l&rsquo;età di ogni bambino.</p>
+          ) : (
+            <p className="mt-4 text-xs font-light text-brand-ink">Le età servono per calcolare prezzo e disponibilità reali della struttura.</p>
+          )}
+          <button type="submit" className={`${BTN.primary} mt-4 w-full`}><Search size={20} {...ICON} aria-hidden="true" /> Cerca disponibilità</button>
+        </div>
+      )}
+
+      {applied && (
+        <div className="mt-4 flex flex-wrap items-center gap-x-4 gap-y-2 px-2 text-sm text-brand-ink">
+          <span className="font-light">
+            Ricerca: <strong className="font-semibold">{applied.dest || 'tutte le destinazioni'}</strong> · <strong className="font-semibold">{whenLabel(applied) || 'qualsiasi data'}{applied.flex && applied.mode === 'date' && applied.from ? ' (±3 gg)' : ''}</strong> · <strong className="font-semibold">{travelersLabel(applied)}</strong>
+          </span>
+          <button type="button" onClick={() => { setQ(EMPTY_SEARCH); onReset(); }} className="inline-flex min-h-[44px] items-center gap-1.5 font-semibold text-brand-primary underline decoration-brand-accent decoration-2 underline-offset-4 focus-visible:outline focus-visible:outline-2 focus-visible:outline-brand-accent">
+            <X size={16} {...ICON} aria-hidden="true" /> Azzera ricerca
+          </button>
+        </div>
+      )}
+    </form>
+  );
+}
+
+/** Nessuna partenza: si passa la ricerca al consulente precompilando il modulo preventivo. */
+function NoResults({ q, onReset }) {
+  const askConsultant = () => {
+    const period = whenLabel(q);
+    window.dispatchEvent(new CustomEvent('felicity:prefill', {
+      detail: {
+        destination: q.dest || '',
+        period: period ? `${period}${q.flex && q.mode === 'date' ? ' (date flessibili)' : ''}` : '',
+        travelers: String(q.adults + q.children.length),
+        message: q.children.length ? `Viaggiamo in ${q.adults} adulti e ${q.children.length} bambini (età: ${q.children.join(', ')}).` : '',
+      },
+    }));
+    ctaClick('Chiedi a un consulente', 'booking_no_results');
+    document.getElementById('preventivo')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    setTimeout(() => document.getElementById('q-name')?.focus({ preventScroll: true }), 700);
+  };
+  return (
+    <div className="mt-10 rounded-3xl bg-white p-8 text-center shadow-soft ring-1 ring-brand-primary/5 sm:p-12">
+      <Splash className="mx-auto h-16 w-16 text-brand-accent/60" />
+      <p className="mt-6 text-2xl font-semibold tracking-tight text-brand-ink">Nessuna partenza in vetrina per questa ricerca.</p>
+      <p className="mx-auto mt-3 max-w-[34rem] font-light leading-relaxed text-brand-ink">
+        In vetrina mostriamo solo una selezione. Un consulente può cercare per te tra tutti i tour operator con cui lavoriamo, proprio per {travelersLabel(q).toLowerCase()}{whenLabel(q) ? ` e per ${whenLabel(q)}` : ''}.
+      </p>
+      <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
+        <button type="button" onClick={askConsultant} className={BTN.primary}><Headphones size={20} {...ICON} aria-hidden="true" /> Chiedi a un consulente</button>
+        <button type="button" onClick={onReset} className={BTN.ghost}>Vedi tutte le partenze</button>
+      </div>
+    </div>
+  );
+}
+
+function OfferCard({ offer, index, search }) {
   const { BadgeIcon } = offer;
+  const href = offerHrefFor(offer, search);
+  const canCheck = href !== offer.href || /\/eta\//.test(offer.href);
   const onSelect = () => track('select_item', {
     item_list_id: 'vetrina_home',
     item_list_name: 'Vetrina viaggi homepage',
@@ -877,7 +1245,7 @@ function OfferCard({ offer, index }) {
       <div className="flex flex-1 flex-col p-6">
         <p className="text-xs font-semibold uppercase tracking-[0.2em] text-brand-primary">{offer.place}</p>
         <h3 className="mt-2 text-xl font-semibold leading-snug tracking-tight text-brand-ink">
-          <a href={offer.href} onClick={onSelect} className="after:absolute after:inset-0 after:rounded-2xl focus-visible:outline-none focus-visible:after:outline focus-visible:after:outline-2 focus-visible:after:outline-offset-2 focus-visible:after:outline-brand-accent">
+          <a href={href} onClick={onSelect} className="after:absolute after:inset-0 after:rounded-2xl focus-visible:outline-none focus-visible:after:outline focus-visible:after:outline-2 focus-visible:after:outline-offset-2 focus-visible:after:outline-brand-accent">
             {offer.name}
           </a>
         </h3>
@@ -892,10 +1260,14 @@ function OfferCard({ offer, index }) {
             <span className="block text-2xl font-semibold tracking-tight text-brand-primary">{formatEuro(offer.price)}</span>
             <span className="text-xs">a persona</span>
           </p>
-          <span className="inline-flex h-11 w-11 items-center justify-center rounded-full bg-brand-primary/5 text-brand-primary transition-[background-color,color,transform] duration-500 ease-out-expo group-hover:bg-brand-primary group-hover:text-white motion-safe:group-hover:translate-x-1" aria-hidden="true">
-            <ArrowRight size={20} {...ICON} />
+          <span className="inline-flex min-h-[44px] items-center gap-2 rounded-full bg-brand-primary/5 px-4 text-sm font-semibold text-brand-primary transition-[background-color,color] duration-500 ease-out-expo group-hover:bg-brand-primary group-hover:text-white" aria-hidden="true">
+            {canCheck ? 'Disponibilità' : 'Dettagli'}
+            <ArrowRight size={20} {...ICON} className="transition-transform duration-500 motion-safe:group-hover:translate-x-1" />
           </span>
         </div>
+        {search && canCheck && (
+          <p className="mt-3 text-xs font-light text-brand-ink">Prezzo e posti in tempo reale per {travelersLabel(search).toLowerCase()}.</p>
+        )}
       </div>
     </article>
   );
@@ -903,8 +1275,17 @@ function OfferCard({ offer, index }) {
 
 function Showcase() {
   const [filter, setFilter] = useState('tutti');
-  const list = useMemo(() => (filter === 'tutti' ? OFFERS : OFFERS.filter((o) => o.type === filter)), [filter]);
-  const counts = useMemo(() => Object.fromEntries(TYPES.map((t) => [t.id, t.id === 'tutti' ? OFFERS.length : OFFERS.filter((o) => o.type === t.id).length])), []);
+  const [search, setSearch] = useState(null);
+  const gridRef = useRef(null);
+  const base = useMemo(() => OFFERS.filter((o) => matchesSearch(o, search)), [search]);
+  const list = useMemo(() => (filter === 'tutti' ? base : base.filter((o) => o.type === filter)), [base, filter]);
+  const counts = useMemo(() => Object.fromEntries(TYPES.map((t) => [t.id, t.id === 'tutti' ? base.length : base.filter((o) => o.type === t.id).length])), [base]);
+  const runSearch = (q) => {
+    setSearch(q);
+    setFilter('tutti');
+    requestAnimationFrame(() => gridRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' }));
+  };
+  const reset = () => { setSearch(null); setFilter('tutti'); };
 
   return (
     <section id="viaggi" className="relative scroll-mt-24 px-6 py-24 sm:px-10 lg:py-36" aria-labelledby="viaggi-title">
@@ -923,7 +1304,11 @@ function Showcase() {
           </Reveal>
         </div>
 
-        <Reveal delay={160} className="mt-12">
+        <Reveal delay={140} className="relative z-20 mt-12">
+          <BookingBar onSearch={runSearch} onReset={reset} applied={search} />
+        </Reveal>
+
+        <Reveal delay={160} className="mt-8">
           <div role="group" aria-label="Filtra per tipologia di viaggio" className="-mx-6 flex gap-2 overflow-x-auto px-6 pb-2 sm:mx-0 sm:flex-wrap sm:px-0">
             {TYPES.map((t) => {
               const active = filter === t.id;
@@ -943,14 +1328,20 @@ function Showcase() {
           </div>
         </Reveal>
 
-        <p className="sr-only" aria-live="polite">{list.length} viaggi mostrati</p>
-        <ul className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3 lg:gap-8">
-          {list.map((o, i) => (
-            <Reveal as="li" key={`${filter}-${o.id}`} delay={Math.min(i, 5) * 90} className="h-full">
-              <OfferCard offer={o} index={i} />
-            </Reveal>
-          ))}
-        </ul>
+        <p className="sr-only" aria-live="polite">{list.length === 1 ? '1 viaggio trovato' : `${list.length} viaggi trovati`}</p>
+        <div ref={gridRef} className="scroll-mt-28">
+          {list.length ? (
+            <ul className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3 lg:gap-8">
+              {list.map((o, i) => (
+                <Reveal as="li" key={`${filter}-${o.id}-${search ? JSON.stringify(search) : ''}`} delay={Math.min(i, 5) * 90} className="h-full">
+                  <OfferCard offer={o} index={i} search={search} />
+                </Reveal>
+              ))}
+            </ul>
+          ) : (
+            <NoResults q={search || EMPTY_SEARCH} onReset={reset} />
+          )}
+        </div>
 
         <p className="mt-8 text-sm font-light text-brand-ink">
           Prezzi a persona «a partire da», come pubblicati sul nostro sito il 7 ottobre 2026: soggetti a disponibilità, li confermiamo al momento del preventivo.
@@ -1242,6 +1633,17 @@ function QuoteForm() {
   const [status, setStatus] = useState('idle'); // idle | sending | success | mailto | error
   const [sentName, setSentName] = useState('');
   const set = (k) => (e) => setForm((f) => ({ ...f, [k]: e.target.type === 'checkbox' ? e.target.checked : e.target.value }));
+  // Precompilazione dal booking engine quando la ricerca non trova partenze
+  useEffect(() => {
+    const onPrefill = (e) => {
+      const d = e.detail || {};
+      setForm((f) => ({ ...f, ...Object.fromEntries(Object.entries(d).filter(([, v]) => v !== '' && v != null)) }));
+      setErrors({});
+      setStatus('idle');
+    };
+    window.addEventListener('felicity:prefill', onPrefill);
+    return () => window.removeEventListener('felicity:prefill', onPrefill);
+  }, []);
   const aria = (k) => ({ 'aria-invalid': !!errors[k], 'aria-describedby': errors[k] ? `q-${k}-err` : undefined });
   const border = (k) => (errors[k] ? 'border-[#b42318]' : 'border-brand-primary/20');
 

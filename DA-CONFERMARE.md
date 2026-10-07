@@ -13,9 +13,10 @@ Tutti i contenuti della homepage vengono da www.felicityviaggi.eu (letto il 7 ot
 ## 2. Offerte in vetrina
 
 - [ ] **Prezzi e date sono una fotografia al 7 ottobre 2026.** Le sei card riportano le offerte pubblicate in homepage quel giorno («da» a persona, partenza, durata, trattamento) e linkano alle rispettive schede del motore OTO. Vanno aggiornate a mano oppure collegate a un feed: come preferite gestirle?
+- [ ] **Booking engine:** cerca solo tra le partenze in vetrina e, per la disponibilità reale, rimanda alle schede OTO con le età dei viaggiatori. Per cercare in tutto il catalogo dei tour operator serve un accesso alle API o a un URL di ricerca del motore OTO: chiedete a OTO S.r.l. se è disponibile. Il widget di ricerca del sito attuale non espone parametri nell'URL.
+- [ ] **Stelle delle strutture:** dalla ricerca sul sito i numeri «5» e «4» risultano stelle. Volete mostrarle nelle card?
 - [ ] **Costa Smeralda (Canarie, Spagna, Madera):** la card del sito dice «8 giorni», ma il link della scheda indica 13/12/2026-27/12/2026 (14 giorni). Quale dato è corretto?
 - [ ] **Costa Deliziosa (Mediterraneo, da 245 €)** è esclusa: il link sul sito punta a date del 2022, probabilmente un'offerta scaduta rimasta nello slider.
-- [ ] **I numeri «5» e «4» accanto ai nomi degli hotel** (SeaClub Cape Panwa, Veraclub, Nicolaus Club, Valtur) sembrano le stelle o una valutazione: non li ho mostrati. Se sono stelle ufficiali, si possono aggiungere.
 - [ ] **«Cerca tra tutte le offerte»** porta alla homepage del sito attuale, dove c'è il motore di ricerca. Se nascerà una pagina «tutte le offerte» o «catalogo», va sostituito il link.
 - [ ] **Mete ispirazione** (Tenerife, Maldive, Capo Verde, Zanzibar): sono le quattro destinazioni promosse oggi in homepage e linkano a `/offerte/<meta>`. Confermate che restino queste?
 
